@@ -1,0 +1,67 @@
+version: "3"
+
+services:
+  nvidia_btcpp_ros2_example:
+    image: btcpp_example
+    privileged: true
+    network_mode: host
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./ros2_ws:/ros2_ws
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      - DISPLAY=${DISPLAY}
+      - WEBOTS_GATEWAY=${WEBOTS_GATEWAY}
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - NVIDIA_VISIBLE_DEVICES=all
+    command: ["bash"]
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+    expose:
+      - "11311"
+      - "12345"
+      - "22"
+      - "5555"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  btcpp_ros2_example:
+    image: btcpp_example
+    privileged: true
+    network_mode: host
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./ros2_ws:/ros2_ws
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      - DISPLAY=${DISPLAY}
+      - WEBOTS_GATEWAY=${WEBOTS_GATEWAY}
+    command: ["bash"]
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+    expose:
+      - "11311"
+      - "12345"
+      - "22"
+      - "5555"

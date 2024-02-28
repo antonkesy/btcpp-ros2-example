@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<root main_tree_to_execute="MainTree">
+    <!-- ////////// -->
+    <BehaviorTree ID="MainTree">
+        <KeepRunningUntilFailure>
+            <ForceSuccess>
+                <Delay delay_msec="3000">
+                    <Fallback name="Emergency Stop">
+                        <Parallel failure_threshold="1" success_threshold="2">
+                            <KeepRunningUntilFailure>
+                                <Delay delay_msec="1000">
+                                    <Sequence>
+                                        <Action ID="GetRuntime" output="{time}"/>
+                                        <Action ID="Print" text="{time}"/>
+                                    </Sequence>
+                                </Delay>
+                            </KeepRunningUntilFailure>
+                            <Delay delay_msec="15000">
+                                <Sequence>
+                                    <Action ID="Print" text="Timed Stop"/>
+                                    <AlwaysFailure name="Trigger Stop"/>
+                                </Sequence>
+                            </Delay>
+                            <KeepRunningUntilFailure>
+                                <Sequence>
+                                    <Fallback>
+                                        <Action ID="IsFrontClear" distance="600" name=""/>
+                                        <RetryUntilSuccessful num_attempts="100">
+                                            <Sequence>
+                                                <Action ID="IsFrontClear" distance="1100" name=""/>
+                                                <Action ID="Move" name="turn left" rotation="-5" speed="0"/>
+                                            </Sequence>
+                                        </RetryUntilSuccessful>
+                                    </Fallback>
+                                    <Action ID="Move" name="moveForward" rotation="0" speed="5"/>
+                                </Sequence>
+                            </KeepRunningUntilFailure>
+                        </Parallel>
+                        <Sequence>
+                            <Action ID="Move" name="Stop Movement" rotation="0" speed="0"/>
+                            <Action ID="Print" text="Stop All"/>
+                        </Sequence>
+                    </Fallback>
+                </Delay>
+            </ForceSuccess>
+        </KeepRunningUntilFailure>
+    </BehaviorTree>
+    <!-- ////////// -->
+    <TreeNodesModel>
+        <Action ID="GetRuntime">
+            <output_port name="output">Current runtime</output_port>
+        </Action>
+        <Action ID="IsFrontClear">
+            <input_port name="distance"/>
+        </Action>
+        <Action ID="Move">
+            <input_port name="rotation"/>
+            <input_port name="speed"/>
+        </Action>
+        <Action ID="Print">
+            <input_port name="text">Text to print</input_port>
+        </Action>
+    </TreeNodesModel>
+    <!-- ////////// -->
+</root>

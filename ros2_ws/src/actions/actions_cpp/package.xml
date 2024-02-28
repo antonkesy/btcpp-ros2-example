@@ -1,0 +1,31 @@
+<package format="3">
+  <name>actions_cpp</name>
+  <version>0.2.0</version>
+  <description>
+    Example actions implemented in C++
+  </description>
+
+  <maintainer email="antonkesy@gmail.com">Anton Kesy</maintainer>
+  <license>MIT</license>
+  <author>Anton Kesy</author>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <exec_depend>ros2launch</exec_depend>
+
+  <depend>rclcpp</depend>
+  <depend>rclcpp_action</depend>
+  <depend>rclcpp_lifecycle</depend>
+  <depend>nav2_behavior_tree</depend>
+  <depend>nav2_behaviors</depend>
+  <depend>nav2_msgs</depend>
+  <depend>sensor_msgs</depend>
+
+
+  <depend>action_interfaces</depend>
+
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+
+</package>

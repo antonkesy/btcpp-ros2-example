@@ -1,0 +1,12 @@
+{
+  "extraPaths": [
+    "/usr/lib/python3.10/",
+    "/opt/ros/humble/local/lib/python3.10/dist-packages",
+    "../../build/action_interfaces",
+    "../../install/action_interfaces/local/lib/python3.11/dist-packages",
+  ],
+  "include": [
+    "actions_py"
+  ],
+  "reportMissingImports": true
+}

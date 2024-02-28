@@ -1,0 +1,29 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/ros2_ws/install/robot_supervisor/include/**",
+        "/ros2_ws/install/decorator_cpp/include/**",
+        "/ros2_ws/install/control_cpp/include/**",
+        "/ros2_ws/install/actions_cpp/include/**",
+        "/ros2_ws/install/action_interfaces/include/**",
+        "/opt/ros/humble/include/**",
+        "/ros2_ws/src/actions/actions_cpp/include/**",
+        "/ros2_ws/src/control/control_cpp/include/**",
+        "/ros2_ws/src/decorator/decorator_cpp/include/**",
+        "/ros2_ws/src/webots/robot_supervisor/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

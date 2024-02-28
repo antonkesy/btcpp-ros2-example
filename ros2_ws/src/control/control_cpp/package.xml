@@ -1,0 +1,23 @@
+<package format="3">
+  <name>control_cpp</name>
+  <version>0.2.0</version>
+  <description>
+    Example control nodes implemented in C++
+  </description>
+
+  <maintainer email="antonkesy@gmail.com">Anton Kesy</maintainer>
+  <license>MIT</license>
+  <author>Anton Kesy</author>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <exec_depend>ros2launch</exec_depend>
+
+  <depend>rclcpp</depend>
+  <depend>sensor_msgs</depend>
+  <depend>behaviortree_cpp_v3</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+
+</package>

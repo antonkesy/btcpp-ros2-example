@@ -1,0 +1,16 @@
+{
+  "name": "BTCPP ROS2 Example Container",
+  "dockerComposeFile": ["./../docker-compose.yml"],
+  "service": "btcpp_ros2_example",
+  "workspaceFolder": "/ros2_ws",
+  "extensions": [
+    "ms-python.python",
+    "llvm-vs-code-extensions.vscode-clangd",
+    "ms-iot.vscode-ros",
+    "ms-vscode.cpptools"
+  ],
+  "settings": {
+    "python.languageServer": "pyright"
+  },
+  "shutdownAction": "stopCompose"
+}

@@ -1,0 +1,158 @@
+#VRML_SIM R2024a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/floors/protos/CircleArena.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation -0.33185733874619844 -0.09874274160469809 0.9381474178937331 3.686018050088086
+  position 2.358271261123896 1.4845375960493146 2.1200343489986357
+  follow "my_robot"
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+CircleArena {
+}
+DEF robot Robot {
+  translation -1.2643742848013437e-14 -1.4163171946943786e-09 -0.00021898923890802807
+  rotation -0.9979494989417599 0.017957105654365983 -0.061435656734573005 2.467351953239758e-07
+  children [
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position 2.1690324707834818e-07
+        axis 0 1 0
+        anchor 0 0 0.025
+      }
+      device [
+        RotationalMotor {
+          name "left wheel motor"
+        }
+      ]
+      endPoint Solid {
+        translation 0 0.04499999999999993 0.025
+        rotation 0 1 0 2.1696418193818693e-07
+        children [
+          DEF WHEEL Pose {
+            rotation 1 0 0 1.5707996938995747
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 1 0 0
+                  roughness 1
+                  metalness 0
+                }
+                geometry Cylinder {
+                  height 0.01
+                  radius 0.025
+                }
+              }
+            ]
+          }
+        ]
+        name "left wheel"
+        boundingObject USE WHEEL
+        physics Physics {
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position -1.4659093102274287e-07
+        axis 0 1 0
+        anchor 0 0 0.025
+      }
+      device [
+        RotationalMotor {
+          name "right wheel motor"
+        }
+      ]
+      endPoint Solid {
+        translation 0 -0.04500000000000001 0.025
+        rotation 0 -0.9999999999999999 0 1.4600096599955432e-07
+        children [
+          USE WHEEL
+        ]
+        name "right wheel"
+        boundingObject USE WHEEL
+        physics Physics {
+        }
+      }
+    }
+    Pose {
+      translation 0 0 0.0415
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 1
+            roughness 1
+            metalness 0
+          }
+          geometry DEF BODY Cylinder {
+            height 0.08
+            radius 0.045
+          }
+        }
+      ]
+    }
+    DistanceSensor {
+      translation 0.042 0.02 0.063
+      rotation 0 0 1 0.5236003061004253
+      children [
+        DEF SENSOR Pose {
+          rotation 0 1 0 1.5708
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 1 1 0
+                roughness 1
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.004
+                radius 0.008
+              }
+            }
+          ]
+        }
+      ]
+      name "ds0"
+      lookupTable [
+        0 1020 0
+        0.05 1020 0
+        0.15 0 0
+      ]
+      numberOfRays 2
+      aperture 1
+    }
+    DistanceSensor {
+      translation 0.042 -0.02 0.063
+      rotation 0 0 1 -0.5235996938995747
+      children [
+        USE SENSOR
+      ]
+      name "ds1"
+      lookupTable [
+        0 1020 0
+        0.05 1020 0
+        0.15 0 0
+      ]
+      numberOfRays 2
+      aperture 1
+    }
+  ]
+  name "my_robot"
+  boundingObject Pose {
+    translation 0 0 0.0415
+    children [
+      USE BODY
+    ]
+  }
+  physics Physics {
+  }
+  controller "<extern>"
+  supervisor TRUE
+}

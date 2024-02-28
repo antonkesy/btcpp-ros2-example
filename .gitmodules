@@ -1,0 +1,3 @@
+[submodule "ros2_ws/src/tools/Groot"]
+	path = ros2_ws/src/tools/Groot
+	url = https://github.com/BehaviorTree/Groot.git

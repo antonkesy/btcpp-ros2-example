@@ -1,0 +1,20 @@
+{
+    "python.analysis.extraPaths": [
+        "/ros2_ws/build/bringup",
+        "/ros2_ws/install/bringup/lib/python3.10/site-packages",
+        "/ros2_ws/build/actions_py",
+        "/ros2_ws/install/actions_py/lib/python3.10/site-packages",
+        "/ros2_ws/install/action_interfaces/local/lib/python3.10/dist-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ],
+    "python.autoComplete.extraPaths": [
+        "/ros2_ws/build/bringup",
+        "/ros2_ws/install/bringup/lib/python3.10/site-packages",
+        "/ros2_ws/build/actions_py",
+        "/ros2_ws/install/actions_py/lib/python3.10/site-packages",
+        "/ros2_ws/install/action_interfaces/local/lib/python3.10/dist-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ]
+}
