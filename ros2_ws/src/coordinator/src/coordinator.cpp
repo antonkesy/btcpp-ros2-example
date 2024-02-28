@@ -39,11 +39,11 @@ int main(int argc, char ** argv)
 
   // XX_action, XY_decorator -> cmake executable/lib name
   nav2_behavior_tree::BehaviorTreeEngine a({
-    // "select_random_control",
+    "select_random_control",
     "is_front_clear_action",
     "move_action",
     "print_action",
-    // "random_delay_decorator",
+    "random_delay_decorator",
     "get_runtime_action",
   });
 

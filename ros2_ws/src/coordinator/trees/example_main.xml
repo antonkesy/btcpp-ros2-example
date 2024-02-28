@@ -6,7 +6,11 @@
             <ForceSuccess>
                 <Delay delay_msec="3000">
                     <Fallback name="Emergency Stop">
-                        <Parallel failure_threshold="1" success_threshold="2">
+                        <Parallel failure_threshold="1" success_threshold="3">
+                            <Control ID="SelectRandom">
+                                <Action ID="Print" text="A"/>
+                                <Action ID="Print" text="B"/>
+                            </Control>
                             <KeepRunningUntilFailure>
                                 <Delay delay_msec="1000">
                                     <Sequence>
@@ -15,12 +19,12 @@
                                     </Sequence>
                                 </Delay>
                             </KeepRunningUntilFailure>
-                            <Delay delay_msec="15000">
+                            <Decorator ID="RandomDelay" max_ms="15000" min_ms="20000">
                                 <Sequence>
                                     <Action ID="Print" text="Timed Stop"/>
                                     <AlwaysFailure name="Trigger Stop"/>
                                 </Sequence>
-                            </Delay>
+                            </Decorator>
                             <KeepRunningUntilFailure>
                                 <Sequence>
                                     <Fallback>
@@ -60,6 +64,11 @@
         <Action ID="Print">
             <input_port name="text">Text to print</input_port>
         </Action>
+        <Decorator ID="RandomDelay">
+            <input_port name="max_ms"/>
+            <input_port name="min_ms"/>
+        </Decorator>
+        <Control ID="SelectRandom"/>
     </TreeNodesModel>
     <!-- ////////// -->
 </root>
