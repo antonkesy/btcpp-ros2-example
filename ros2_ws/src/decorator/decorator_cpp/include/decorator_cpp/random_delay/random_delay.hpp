@@ -19,8 +19,9 @@ public:
 
   static BT::PortsList providedPorts()
   {
-    return {BT::InputPort<unsigned int>("min_ms", 0, "Minimum delay in milliseconds")};
-    return {BT::InputPort<unsigned int>("max_ms", 0, "Maximum delay in milliseconds")};
+    return {
+      BT::InputPort<unsigned int>("min_ms", 0, "Minimum delay in milliseconds"),
+      BT::InputPort<unsigned int>("max_ms", 0, "Maximum delay in milliseconds")};
   }
 
 private:

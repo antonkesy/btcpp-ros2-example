@@ -1,6 +1,7 @@
 #include "control_cpp/select_random/select_random.hpp"
 
 #include <memory>
+#include <random>
 #include <string>
 
 namespace example
@@ -16,7 +17,13 @@ BT::NodeStatus SelectRandom::tick()
 
   setStatus(BT::NodeStatus::RUNNING);
 
-  const auto random_id = std::rand() % children_count;
+  const auto random_id = [&children_count]() -> unsigned int {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<float> dis(0, children_count - 1);
+    return dis(gen);
+  }();
+
   TreeNode * current_child_node = children_nodes_[random_id];
   const BT::NodeStatus child_status = current_child_node->executeTick();
 

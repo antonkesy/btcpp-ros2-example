@@ -1,6 +1,7 @@
 #include "decorator_cpp/random_delay/random_delay.hpp"
 
 #include <memory>
+#include <random>
 #include <string>
 
 namespace example
@@ -14,7 +15,13 @@ BT::NodeStatus RandomDelay::tick()
     delay_started_ = true;
     setStatus(BT::NodeStatus::RUNNING);
 
-    const auto msec = std::rand() % (max_ms_ - min_ms_ + 1) + min_ms_;
+    const auto msec = [this]() -> unsigned int {
+      std::random_device rd;
+      std::mt19937 gen(rd());
+      std::uniform_real_distribution<float> dis(min_ms_, max_ms_);
+      return dis(gen);
+    }();
+
     timer_id_ = timer_.add(std::chrono::milliseconds(msec), [this](bool aborted) {
       std::unique_lock<std::mutex> lk(delay_mutex_);
       delay_complete_ = (!aborted);
