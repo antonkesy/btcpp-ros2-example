@@ -9,6 +9,10 @@ namespace example
 
 BT::NodeStatus RandomDelay::tick()
 {
+  if (min_ms_ > max_ms_) {
+    throw BT::RuntimeError("min_ms must be less than or equal to max_ms");
+  }
+
   if (!delay_started_) {
     delay_complete_ = false;
     delay_aborted_ = false;

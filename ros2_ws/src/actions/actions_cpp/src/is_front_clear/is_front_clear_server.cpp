@@ -73,8 +73,7 @@ private:
     else
       goal_handle->abort(result);
   }
-
-};  //
+};
 
 int main(int argc, char ** argv)
 {

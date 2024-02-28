@@ -6,7 +6,7 @@
             <ForceSuccess>
                 <Delay delay_msec="3000">
                     <Fallback name="Emergency Stop">
-                        <Parallel failure_threshold="1" success_threshold="3">
+                        <Parallel failure_threshold="1" success_threshold="4">
                             <Control ID="SelectRandom">
                                 <Action ID="Print" text="A"/>
                                 <Action ID="Print" text="B"/>
@@ -19,25 +19,29 @@
                                     </Sequence>
                                 </Delay>
                             </KeepRunningUntilFailure>
-                            <Decorator ID="RandomDelay" max_ms="15000" min_ms="20000">
+                            <Decorator ID="RandomDelay" max_ms="20000" min_ms="15000">
                                 <Sequence>
                                     <Action ID="Print" text="Timed Stop"/>
                                     <AlwaysFailure name="Trigger Stop"/>
                                 </Sequence>
                             </Decorator>
                             <KeepRunningUntilFailure>
-                                <Sequence>
-                                    <Fallback>
-                                        <Action ID="IsFrontClear" distance="600" name=""/>
-                                        <RetryUntilSuccessful num_attempts="100">
+                                <Fallback>
+                                    <Sequence>
+                                        <Inverter>
+                                            <Action ID="IsFrontClear" distance="600" name=""/>
+                                        </Inverter>
+                                        <KeepRunningUntilFailure>
                                             <Sequence>
-                                                <Action ID="IsFrontClear" distance="1100" name=""/>
+                                                <Inverter>
+                                                    <Action ID="IsFrontClear" distance="1000"/>
+                                                </Inverter>
                                                 <Action ID="Move" name="turn left" rotation="-5" speed="0"/>
                                             </Sequence>
-                                        </RetryUntilSuccessful>
-                                    </Fallback>
+                                        </KeepRunningUntilFailure>
+                                    </Sequence>
                                     <Action ID="Move" name="moveForward" rotation="0" speed="5"/>
-                                </Sequence>
+                                </Fallback>
                             </KeepRunningUntilFailure>
                         </Parallel>
                         <Sequence>

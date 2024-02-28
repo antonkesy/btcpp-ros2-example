@@ -37,7 +37,7 @@ int main(int argc, char ** argv)
   rclcpp::init(argc, argv);
   auto node = rclcpp::Node::make_shared("coordinator");
 
-  // XX_action, XY_decorator -> cmake executable/lib name
+  // XX_action, XY_decorator -> XX = cmake executable/lib name
   nav2_behavior_tree::BehaviorTreeEngine a({
     "select_random_control",
     "is_front_clear_action",
