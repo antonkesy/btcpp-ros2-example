@@ -74,4 +74,7 @@ RUN echo "pgrep -x sshd > /dev/null || { echo "Starting SSH server in background
 
 RUN echo "cd /ros2_ws" >> /root/.bashrc
 
-CMD ["bash"]
+# install dependencies on first start
+RUN echo "[ -e /tmp/dependencies.lock ] || { touch /tmp/dependencies.lock && command -v make && make dependencies; }" >> /root/.bashrc
+# build workspace on first start
+RUN echo "[ -e /tmp/build.lock ] || { touch /tmp/build.lock && command -v make && make build; }" >> /root/.bashrc
