@@ -1,5 +1,5 @@
 # https://hub.docker.com/r/nvidia/cuda
-FROM nvidia/cuda:12.3.0-runtime-ubuntu22.04
+FROM nvidia/cuda:12.3.0-runtime-ubuntu22.04 as base
 
 ENV TZ=Europe
 ENV DEBIAN_FRONTEND noninteractive
@@ -78,3 +78,8 @@ RUN echo "cd /ros2_ws" >> /root/.bashrc
 RUN echo "[ -e /tmp/dependencies.lock ] || { touch /tmp/dependencies.lock && command -v make && make dependencies; }" >> /root/.bashrc
 # build workspace on first start
 RUN echo "[ -e /tmp/build.lock ] || { touch /tmp/build.lock && command -v make && make build; }" >> /root/.bashrc
+
+FROM base as ci
+COPY ./ros2_ws /ros2_ws
+WORKDIR /ros2_ws
+RUN /bin/bash -c "source /opt/ros/humble/setup.bash && make dependencies && make build"

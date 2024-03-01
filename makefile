@@ -1,8 +1,8 @@
 all: build start
 
 build: Dockerfile
-	docker compose build btcpp_ros2_example
-	docker compose build nvidia_btcpp_ros2_example
+	docker build --target base -t btcpp_ros2_example .
+	docker build --target base -t nvidia_btcpp_ros2_example .
 
 start:
 	@echo Running container without nvidia
@@ -33,3 +33,6 @@ mount:
 	fusermount -u /ros2_ws || true
 	mkdir -p /ros2_ws
 	sshfs -o allow_other root@localhost:/ros2_ws /ros2_ws
+
+ci: Dockerfile
+	docker build --target ci -t ci .
