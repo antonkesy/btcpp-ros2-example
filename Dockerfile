@@ -1,5 +1,4 @@
-# https://hub.docker.com/r/nvidia/cuda
-FROM nvidia/cuda:12.3.0-runtime-ubuntu22.04 as base
+FROM ubuntu:22.04 AS base
 
 ENV TZ=Europe
 ENV DEBIAN_FRONTEND noninteractive
@@ -7,15 +6,18 @@ ENV DEBIAN_FRONTEND noninteractive
 WORKDIR /ros2_ws
 VOLUME /ros2_ws
 
-# Install some dependencies
+# dependencies & nice2have
 RUN apt update && \
-  apt-get install software-properties-common -y && \
+  apt-get install -y software-properties-common && \
   apt update -y && \
-  add-apt-repository universe -y && \
-  apt install python3-pip -y && \
-  apt-get install build-essential -y && \
-  apt-get install clang-tidy clang-format -y && \
-  apt install -y inetutils-ping netcat iproute2
+  add-apt-repository -y universe && \
+  apt-get install -y python3-pip wget git build-essential libboost-all-dev && \
+  # clang-tools
+  apt-get install -y clang-tidy clang-format && \
+  # webots connection test
+  apt install -y inetutils-ping netcat iproute2 && \
+  # user
+  apt install -y sudo
 
 # add user
 RUN useradd -ms /bin/bash user
@@ -40,16 +42,12 @@ RUN pip install setuptools==58.2.0
 RUN echo "[ -e /ros2_ws/install/setup.bash ] && source /ros2_ws/install/setup.bash" >> /root/.bashrc
 
 # docker Webots
-RUN apt update && \
-  mkdir -p /etc/apt/keyrings && \
-  apt-get install wget -y && \
-  apt-get install software-properties-common -y && \
-  cd /etc/apt/keyrings && \
-  wget -q https://cyberbotics.com/Cyberbotics.asc && \
-  echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/Cyberbotics.asc] https://cyberbotics.com/debian binary-amd64/" | tee /etc/apt/sources.list.d/Cyberbotics.list && \
-  apt update && \
-  apt-get install webots=2023b -y && \
-  apt install ros-humble-webots-ros2 -y
+RUN add-apt-repository universe && \
+  add-apt-repository multiverse
+RUN apt update
+RUN apt install -y --fix-broken wget ffmpeg libfreeimage3 libssh-dev libzip-dev xserver-xorg-core libxcb-cursor0
+RUN wget -O /tmp/webots.deb https://github.com/cyberbotics/webots/releases/download/R2025a/webots_2025a_amd64.deb && apt install -y /tmp/webots.deb && \
+  apt install ros-humble-webots-ros2 -y --fix-missing
 EXPOSE 12345
 ENV WEBOTS_HOME=/usr/local/webots
 ENV LD_LIBRARY_PATH=$WEBOTS_HOME/lib/controller:$LD_LIBRARY_PATH
@@ -75,7 +73,7 @@ RUN echo "[ -e /tmp/dependencies.lock ] || { touch /tmp/dependencies.lock && com
 # build workspace on first start
 RUN echo "[ -e /tmp/build.lock ] || { touch /tmp/build.lock && command -v make && make build; }" >> /root/.bashrc
 
-FROM base as ci
+FROM base AS ci
 COPY ./ros2_ws /ros2_ws
 WORKDIR /ros2_ws
 RUN /bin/bash -c "source /opt/ros/humble/setup.bash && make dependencies && make build"

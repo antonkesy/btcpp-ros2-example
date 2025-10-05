@@ -1,6 +1,7 @@
 # btcpp-ros2-example
 
-[![Build Status](https://github.com/antonkesy/btcpp-ros2-example/workflows/build/badge.svg)](https://github.com/antonkesy/btcpp-ros2-example/actions)
+[![Build Status](https://github.com/antonkesy/btcpp-ros2-example/workflows/build/badge.svg)](https://github.com/antonkesy/btcpp-ros2-example/actions/workflows/build.yml)
+[![Pre-Commit](https://github.com/antonkesy/btcpp-ros2-example/workflows/pre-commit/badge.svg)](https://github.com/antonkesy/btcpp-ros2-example/actions/workflows/pre-commit.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Simple [BTCPP v3.8](https://github.com/BehaviorTree/BehaviorTree.CPP/tree/v3.8) integration example using [ROS2 Humble](https://docs.ros.org/en/humble/index.html) and [Webots](https://cyberbotics.com/).
@@ -53,10 +54,8 @@ Docker and makefiles are used to run the example.
 
 In repository root:
 
-- `make apt-nvidia-toolkit` -> Install nvidia-toolkit using apt for hardware acceleration
 - `make build` -> build docker containers
 - `make start` -> starts docker container
-- `make build-nvidia start-nvidia` -> same but with nvidia-GPU connection
 - `make connect` -> opens ssh connection to running container
 - `make mount` -> mounts container workspace to `/` (helpful for LSPs)
 
@@ -122,12 +121,6 @@ Possible Solutions:
             <input_port name="otherPort" type="std::string"/>
 </Action>
 ```
-
-### Error response from daemon: could not select device driver "nvidia" with capabilities: [[gpu]]
-
-- nvidia GPU connected?
-- Up-to-date driver installed?
-- nvidia-toolkit installed? -> `sudo make apt-nvidia-toolkit` (might require reboot)
 
 ### No permission to change files
 
