@@ -8,14 +8,20 @@ WORKDIR /ros2_ws
 VOLUME /ros2_ws
 
 # Install some dependencies
-RUN apt update && \ 
-  apt-get install software-properties-common -y && \ 
+RUN apt update && \
+  apt-get install software-properties-common -y && \
   apt update -y && \
   add-apt-repository universe -y && \
   apt install python3-pip -y && \
   apt-get install build-essential -y && \
   apt-get install clang-tidy clang-format -y && \
   apt install -y inetutils-ping netcat iproute2
+
+# add user
+RUN useradd -ms /bin/bash user
+RUN touch /home/user/.bashrc
+RUN usermod -aG sudo,dialout user
+RUN echo 'user ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 # Install ROS 2:Humble
 RUN apt update && \
@@ -53,7 +59,7 @@ RUN apt-get update --fix-missing
 RUN apt install python3-colcon-common-extensions -y && \
   pip install rosdep
 
-# Groot 
+# Groot
 RUN apt install -y qtbase5-dev qt5-qmake cmake libqt5svg5-dev
 EXPOSE 5555
 
@@ -61,16 +67,6 @@ EXPOSE 5555
 RUN rosdep init && rosdep update
 
 ENV DEBIAN_FRONTEND newt
-
-# allow SSH sessions to container
-RUN apt-get update && \
-  apt-get install -y openssh-server && \
-  mkdir /var/run/sshd
-RUN echo 'root:toor' | chpasswd
-RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
-RUN sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
-EXPOSE 22
-RUN echo "pgrep -x sshd > /dev/null || { echo "Starting SSH server in background..."; /usr/sbin/sshd & }" >> /root/.bashrc
 
 RUN echo "cd /ros2_ws" >> /root/.bashrc
 

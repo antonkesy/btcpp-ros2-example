@@ -50,7 +50,7 @@ Docker and makefiles are used to run the example.
 In repository root:
 
 - `make apt-nvidia-toolkit` -> Install nvidia-toolkit using apt for hardware acceleration
-- `make build` -> build docker containers which example runs in
+- `make build` -> build docker containers
 - `make start` -> starts docker container
 - `make build-nvidia start-nvidia` -> same but with nvidia-GPU connection
 - `make connect` -> opens ssh connection to running container
@@ -178,8 +178,7 @@ CMake Error at CMakeLists.txt:13 (find_package):
 Package 'bringup' not found: "package 'bringup' not found, searching: ['/opt/ros/humble']"
 ```
 
-- have you ran `make build`?
-- have you sourced the build `source install/setup.bash`?
+- have you ran `make build` after `make clean`?
 
 ### unknown result response, ignoring...
 
