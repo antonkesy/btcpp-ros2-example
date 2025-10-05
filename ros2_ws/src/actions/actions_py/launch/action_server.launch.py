@@ -9,6 +9,6 @@ def generate_launch_description():
                 package="actions_py",
                 executable="print_action_server",
                 output="screen",
-            )
-        ]
+            ),
+        ],
     )

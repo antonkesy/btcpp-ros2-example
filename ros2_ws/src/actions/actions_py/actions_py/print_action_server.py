@@ -1,6 +1,5 @@
-from action_interfaces.action import Print
-
 import rclpy
+from action_interfaces.action import Print
 from rclpy.action import ActionServer, CancelResponse, GoalResponse
 from rclpy.callback_groups import ReentrantCallbackGroup
 from rclpy.node import Node

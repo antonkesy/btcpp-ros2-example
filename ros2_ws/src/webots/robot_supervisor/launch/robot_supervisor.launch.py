@@ -1,4 +1,5 @@
 import os
+
 from launch import LaunchDescription
 from launch_ros.actions import Node
 
@@ -18,8 +19,8 @@ def generate_launch_description():
                     os.environ.get("WEBOTS_HOME", "")
                     + "/webots-controller"
                     + " --protocol=tcp"
-                    + f" --ip-address={WEBOTS_GATEWAY} --port=1234"
+                    + f" --ip-address={WEBOTS_GATEWAY} --port=1234",
                 ],
-            )
-        ]
+            ),
+        ],
     )

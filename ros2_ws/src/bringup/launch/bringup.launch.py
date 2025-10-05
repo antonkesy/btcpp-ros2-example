@@ -1,8 +1,8 @@
 from launch import LaunchDescription
-from launch_ros.substitutions import FindPackageShare
 from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import PathJoinSubstitution
+from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
@@ -15,9 +15,9 @@ def generate_launch_description():
                             FindPackageShare("actions_cpp"),
                             "launch",
                             "action_server.launch.py",
-                        ]
-                    )
-                )
+                        ],
+                    ),
+                ),
             ),
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(
@@ -26,9 +26,9 @@ def generate_launch_description():
                             FindPackageShare("actions_py"),
                             "launch",
                             "action_server.launch.py",
-                        ]
-                    )
-                )
+                        ],
+                    ),
+                ),
             ),
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(
@@ -37,9 +37,9 @@ def generate_launch_description():
                             FindPackageShare("coordinator"),
                             "launch",
                             "coordinator.launch.py",
-                        ]
-                    )
-                )
+                        ],
+                    ),
+                ),
             ),
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(
@@ -48,9 +48,9 @@ def generate_launch_description():
                             FindPackageShare("robot_supervisor"),
                             "launch",
                             "robot_supervisor.launch.py",
-                        ]
-                    )
-                )
+                        ],
+                    ),
+                ),
             ),
-        ]
+        ],
     )

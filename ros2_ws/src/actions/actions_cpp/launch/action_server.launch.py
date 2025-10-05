@@ -17,5 +17,5 @@ def generate_launch_description():
                 package="actions_cpp",
                 executable="is_front_clear_server",
             ),
-        ]
+        ],
     )
