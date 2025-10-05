@@ -8,15 +8,15 @@ COLCON_BUILD_FLAGS= --symlink-install \
 										--no-warn-unused-cli
 
 bringup: build
-	@echo "Make sure you the workspace is sourced: 'source install/setup.bash'"
-	ros2 launch bringup bringup.launch.py
+	. ./install/setup.sh && ros2 launch bringup bringup.launch.py
 
 clean:
 	rm build log install -rf
 	rm src/tools/Groot/build -rf
 
 dependencies:
-	rosdep install --from-paths . --ignore-src -y -r
+	sudo rosdep init || true
+	sudo rosdep install --from-paths . --ignore-src -y -r --rosdistro ${ROS_DISTRO}
 
 build: FORCE
 	colcon build ${COLCON_BUILD_FLAGS}

@@ -1,7 +1,7 @@
 all: build start
 
 build: Dockerfile
-	docker build --target base -t btcpp_ros2_example .
+	docker build --target base -t btcpp_ros2 .
 
 start:
 	xhost +local:docker || true
@@ -18,3 +18,7 @@ stop:
 
 ci: Dockerfile
 	docker build --target ci -t ci .
+
+clean:
+	docker compose down --remove-orphans
+	docker rmi btcpp_ros2 ci || true

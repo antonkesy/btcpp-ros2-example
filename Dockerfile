@@ -1,7 +1,7 @@
 FROM ubuntu:22.04 AS base
 
 ENV TZ=Europe
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 WORKDIR /ros2_ws
 VOLUME /ros2_ws
@@ -26,6 +26,7 @@ RUN usermod -aG sudo,dialout user
 RUN echo 'user ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 # Install ROS 2:Humble
+ENV ROS_DISTRO=humble
 RUN apt update && \
   apt install -y curl gnupg2 lsb-release && \
   curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | gpg --dearmor -o /usr/share/keyrings/ros-archive-keyring.gpg
@@ -50,7 +51,7 @@ RUN wget -O /tmp/webots.deb https://github.com/cyberbotics/webots/releases/downl
   apt install ros-humble-webots-ros2 -y --fix-missing
 EXPOSE 12345
 ENV WEBOTS_HOME=/usr/local/webots
-ENV LD_LIBRARY_PATH=$WEBOTS_HOME/lib/controller:$LD_LIBRARY_PATH
+ENV LD_LIBRARY_PATH=$WEBOTS_HOME/lib/controller
 
 # Project dependencies
 RUN apt-get update --fix-missing
@@ -64,14 +65,25 @@ EXPOSE 5555
 # First time ROS setup
 RUN rosdep init && rosdep update
 
-ENV DEBIAN_FRONTEND newt
+ENV DEBIAN_FRONTEND=newt
 
 RUN echo "cd /ros2_ws" >> /root/.bashrc
 
 # install dependencies on first start
-RUN echo "[ -e /tmp/dependencies.lock ] || { touch /tmp/dependencies.lock && command -v make && make dependencies; }" >> /root/.bashrc
+RUN echo "[ -e /tmp/dependencies.lock ] || { touch /tmp/dependencies.lock && command -v make dependencies; }" >> /root/.bashrc
 # build workspace on first start
 RUN echo "[ -e /tmp/build.lock ] || { touch /tmp/build.lock && command -v make && make build; }" >> /root/.bashrc
+
+# Install dependencies into container
+WORKDIR /ros2_ws
+COPY ./ros2_ws /ros2_ws
+RUN rm log install build -rf
+RUN /bin/bash -c "source /opt/ros/humble/setup.bash && make dependencies build"
+# remove build artefacts to avoid conflicts/ghots with host mount
+RUN rm /ros2_ws -rf
+# just to be sure :)
+RUN apt-get update --fix-missing
+WORKDIR /ros2_ws
 
 FROM base AS ci
 COPY ./ros2_ws /ros2_ws
