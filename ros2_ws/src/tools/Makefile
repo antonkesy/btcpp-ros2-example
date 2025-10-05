@@ -1,10 +1,10 @@
 GROOT_BIN="./Groot/build/Groot"
 
-build_groot: 
+build_groot:
 	cd Groot && \
 	mkdir build -p && cd build && \
 	cmake .. && \
-	make 
+	make
 
 groot_bringup: build_groot
 	${GROOT_BIN} --mode editor &
