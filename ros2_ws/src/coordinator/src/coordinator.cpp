@@ -62,7 +62,8 @@ int main(int argc, char ** argv)
   BT::FileLogger logger_file(tree, "log/latest_tree.fbl");
   BT::PublisherZMQ publisher_zmq(tree, 5555);
 
-  a.run(&tree, [] { /* every tick */ }, [] { return false; });
+  a.run(
+    &tree, [] { /* every tick */ }, [] { return false; });
 
   rclcpp::shutdown();
 

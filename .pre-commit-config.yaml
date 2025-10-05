@@ -29,6 +29,8 @@ repos:
     hooks:
       - id: black
   - repo: https://github.com/pre-commit/mirrors-clang-format
-    rev: ""
+    rev: v16.0.6
     hooks:
       - id: clang-format
+        additional_dependencies: []
+        files: \.(cpp|hpp|c|h)$
