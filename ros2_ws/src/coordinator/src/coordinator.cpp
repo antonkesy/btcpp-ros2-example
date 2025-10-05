@@ -9,11 +9,18 @@
 #include "nav2_behavior_tree/behavior_tree_engine.hpp"
 #include "rclcpp/rclcpp.hpp"
 
-void FillNav2Blackboard(BT::Blackboard & blackboard, std::shared_ptr<rclcpp::Node> & node)
+static void FillNav2Blackboard(BT::Blackboard & blackboard, std::shared_ptr<rclcpp::Node> & node)
 {
   blackboard.set("node", node);
-  blackboard.set("bt_loop_duration", std::chrono::milliseconds(10));
-  blackboard.set("server_timeout", std::chrono::milliseconds(20));
+  blackboard.set(
+    "bt_loop_duration",
+    std::chrono::milliseconds(10));  // NOLINT(cppcoreguidelines-avoid-magic-numbers)
+  blackboard.set(
+    "server_timeout",
+    std::chrono::milliseconds(20));  // NOLINT(cppcoreguidelines-avoid-magic-numbers)
+  blackboard.set(
+    "wait_for_service_timeout",
+    std::chrono::milliseconds(20));  // NOLINT(cppcoreguidelines-avoid-magic-numbers)
 }
 
 std::string GetTreePath(rclcpp::Node & node)
