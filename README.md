@@ -1,5 +1,8 @@
 # btcpp-ros2-example
 
+[![Build Status](https://github.com/antonkesy/btcpp-ros2-example/workflows/build/badge.svg)](https://github.com/antonkesy/btcpp-ros2-example/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Simple [BTCPP v3.8](https://github.com/BehaviorTree/BehaviorTree.CPP/tree/v3.8) integration example using [ROS2 Humble](https://docs.ros.org/en/humble/index.html) and [Webots](https://cyberbotics.com/).
 
 ## Behavior
