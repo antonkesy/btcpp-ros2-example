@@ -1,7 +1,7 @@
+#include "actions_cpp/is_front_clear/is_front_clear.hpp"
+
 #include <memory>
 #include <string>
-
-#include "actions_cpp/is_front_clear/is_front_clear.hpp"
 
 namespace example
 {

@@ -20,7 +20,6 @@ public:
   {
     return providedBasicPorts({BT::InputPort<int>("distance", 0, "Distance to check")});
   }
-
 };
 
 }  // namespace example
