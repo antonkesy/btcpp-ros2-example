@@ -5,6 +5,8 @@
 
 Simple [BTCPP v3.8](https://github.com/BehaviorTree/BehaviorTree.CPP/tree/v3.8) integration example using [ROS2 Humble](https://docs.ros.org/en/humble/index.html) and [Webots](https://cyberbotics.com/).
 
+Demo project of which was part of my bachelor thesis: [Integration and Evaluation of a Framework for Decision-Making in Autonomous Systems](https://opus.hs-offenburg.de/frontdoor/index/index/docId/8566)
+
 ## Behavior
 
 The basic behavior is:
@@ -41,7 +43,6 @@ Docker and makefiles are used to run the example.
 
 - Docker
 - Webots (recommended to install outside container on native OS)
-
   - WINDOWS: add WEBOTS_GATEWAY to docker host (WSL) before starting container
 
   ```
