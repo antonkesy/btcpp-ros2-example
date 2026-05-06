@@ -4,7 +4,7 @@ build: Dockerfile
 	docker build --target base -t btcpp_ros2 .
 
 start:
-	xhost +local:docker || true
+	-xhost +local:docker
 	docker compose up -d btcpp_ros2_example --remove-orphans
 	-docker exec -it btcpp_ros2_example bash
 	@echo "Remember to type 'make stop' (if desired) since the container continues to run in the background"
@@ -21,4 +21,4 @@ ci: Dockerfile
 
 clean:
 	docker compose down --remove-orphans
-	docker rmi btcpp_ros2 ci || true
+	-docker rmi btcpp_ros2 ci
