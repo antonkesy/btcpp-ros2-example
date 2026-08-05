@@ -37,7 +37,7 @@ class PrintServer(Node):
         goal_handle.succeed()
         result = Print.Result()
 
-        # get goal requst
+        # get goal request
         self.get_logger().info(f"{goal_handle.request.text}")
 
         return result
